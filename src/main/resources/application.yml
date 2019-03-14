@@ -1,0 +1,9 @@
+server:
+  port: 8066
+# Elasticsearch
+elasticsearch:
+  ip: 127.0.0.1
+  port: 9300
+  pool: 10
+  cluster:
+    name: es-6.6.2-test
