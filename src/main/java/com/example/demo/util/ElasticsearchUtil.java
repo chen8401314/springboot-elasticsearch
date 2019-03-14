@@ -307,8 +307,8 @@ public class ElasticsearchUtil {
      */
     private static List<Map<String, Object>> setSearchResponse(SearchResponse searchResponse, String highlightField) {
         List<Map<String, Object>> sourceList = new ArrayList<>();
-        StringBuffer stringBuffer = new StringBuffer();
         for (SearchHit searchHit : searchResponse.getHits().getHits()) {
+            StringBuffer stringBuffer = new StringBuffer();
             searchHit.getSourceAsMap().put("id", searchHit.getId());
             if (StringUtils.isNotEmpty(highlightField)) {
                 log.info("遍历 高亮结果集，覆盖 正常结果集" + searchHit.getSourceAsMap());
