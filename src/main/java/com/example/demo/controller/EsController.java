@@ -241,7 +241,7 @@ public class EsController {
         if (StringUtils.isNotBlank(startPage) && StringUtils.isNotBlank(pageSize)) {
             BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
             boolQuery.must(QueryBuilders.rangeQuery("date").from("2018-04-25T08:33:44.840Z")
-                    .to("2019-04-25T10:03:08.081Z"));
+                    .to("2022-04-25T10:03:08.081Z"));
             EsPage list = ElasticsearchUtil.searchDataPage(indexName, esType, Integer.parseInt(startPage), Integer.parseInt(pageSize), boolQuery, null, null, null);
             return JSONObject.toJSONString(list);
         } else {

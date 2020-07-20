@@ -23,28 +23,47 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+compileJava {
+    options.fork = true
+    options.encoding = "UTF-8"
+    //options.compilerArgs << "-Xmx2048m" <<"-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
+compileTestJava {
+    options.fork = true
+    options.failOnError = true
+    options.encoding = "UTF-8"
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java", "build/generated/sources/annotationProcessor/java/main"]
+        }
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
-}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework:spring-context")
-    compile("org.projectlombok:lombok:${lombokVersion}")
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
     compile("org.springframework.boot:spring-boot-starter-tomcat")
     compile("io.springfox:springfox-swagger2:2.6.1")
     compile("io.springfox:springfox-swagger-ui:2.6.1")
-
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     compile("org.elasticsearch:elasticsearch:6.4.2")
     compile("org.elasticsearch.client:transport:6.4.2"){
@@ -57,5 +76,4 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
 
-    apt("org.projectlombok:lombok:${lombokVersion}")
 }
